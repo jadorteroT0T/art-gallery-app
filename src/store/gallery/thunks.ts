@@ -14,7 +14,8 @@ import {
   updatedProject,
   setPhotosToActiveProject,
   deleteProyectById,
-} from './gallery-slice';
+} from './projects-slice';
+import { setSnackbarOpen } from '../ui/ui-slice';
 
 export const startNewProject = () => {
   return async (dispatch: AppDispach, getState: () => RootState) => {
@@ -54,7 +55,7 @@ export const startSavingProject = () => {
     dispatch(setSaving());
 
     const { uid } = getState().auth;
-    const { active: project } = getState().gallery;
+    const { active: project } = getState().projects;
 
     const projectToFirestore = { ...project };
     delete projectToFirestore.id;
@@ -63,6 +64,7 @@ export const startSavingProject = () => {
     await setDoc(docRef, projectToFirestore, { merge: true });
 
     dispatch(updatedProject(project!));
+    dispatch(setSnackbarOpen(true));
   };
 };
 
@@ -89,7 +91,7 @@ export const startUploadingFiles = (files: FileList) => {
 export const startDeletingProject = () => {
   return async (dispatch: AppDispach, getState: () => RootState) => {
     const { uid } = getState().auth;
-    const { active: project } = getState().gallery;
+    const { active: project } = getState().projects;
 
     const docRef = doc(FirebaseDB, `${uid}/gallery/projects/${project!.id}`);
     await deleteDoc(docRef);

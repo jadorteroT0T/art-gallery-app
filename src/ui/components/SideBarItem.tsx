@@ -1,35 +1,47 @@
 import { useMemo } from 'react';
-import { TurnedInNot } from '@mui/icons-material';
-import {
-  Grid,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
-import type { CustomItem } from '../../types/custom-item';
+import { NavLink, useLocation } from 'react-router';
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
-export const SideBarItem = ({ title, subtitle, onClick }: CustomItem) => {
+import type { CustomItem } from '../../types/custom-item';
+import { cropString } from '../../helpers';
+
+export const SideBarItem = ({ title, subtitle, icon, path }: CustomItem) => {
   const newTitle = useMemo(() => {
-    return title.length > 15 ? title.substring(0, 15) + '...' : title;
+    return cropString(title, 15);
   }, [title]);
 
   const newSubtitle = useMemo(() => {
     if (!subtitle) return;
-    return subtitle.length > 35 ? subtitle.substring(0, 35) + '...' : subtitle;
+    return cropString(subtitle, 35);
   }, [subtitle]);
 
+  const { pathname } = useLocation();
+  const isActive = pathname.includes(path);
+
   return (
-    <ListItem className="animate__animated animate__fadeIn" disablePadding>
-      <ListItemButton onClick={onClick}>
-        <ListItemIcon>
-          <TurnedInNot />
-        </ListItemIcon>
-        <Grid>
-          <ListItemText primary={newTitle} />
-          <ListItemText secondary={newSubtitle} />
-        </Grid>
-      </ListItemButton>
-    </ListItem>
+    <Link component={NavLink} to={path}>
+      <ListItem
+        divider
+        className="animate__animated animate__fadeIn"
+        disablePadding
+      >
+        <ListItemButton selected={isActive}>
+          <ListItemAvatar>
+            <Avatar sx={{ backgroundColor: 'secondary.main' }}>{icon}</Avatar>
+          </ListItemAvatar>
+
+          <Grid>
+            <ListItemText primary={newTitle} />
+            <ListItemText secondary={newSubtitle} />
+          </Grid>
+        </ListItemButton>
+      </ListItem>
+    </Link>
   );
 };

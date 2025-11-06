@@ -1,15 +1,14 @@
+import { NavLink } from 'react-router';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
 import LogoutOutlined from '@mui/icons-material/LogoutOutlined';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Grid,
-  IconButton,
-  Box,
-} from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
 
 import { useAppDispatch } from '../../store/reduxHooks';
 import { startLogout } from '../../store/auth';
+import { setActiveProject } from '../../store/gallery';
 
 interface Props {
   drawerWidth?: number;
@@ -18,7 +17,11 @@ interface Props {
 export const NavBar = ({ drawerWidth }: Props) => {
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  const handleActiveProject = () => {
+    dispatch(setActiveProject(null));
+  };
+
+  const handleLogout = () => {
     dispatch(startLogout());
   };
 
@@ -27,17 +30,18 @@ export const NavBar = ({ drawerWidth }: Props) => {
       sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Typography variant="h6">Art Gallery</Typography>
+        <Link
+          component={NavLink}
+          to="/projects"
+          onClick={handleActiveProject}
+          variant="h6"
+          sx={{ color: 'white' }}
+        >
+          Art Gallery
+        </Link>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <nav>
-            <Grid container spacing={2} sx={{ alignItems: 'center' }}>
-              <Typography sx={{ cursor: 'pointer' }}>Proyectos</Typography>
-              <Typography sx={{ cursor: 'pointer' }}>Actividades</Typography>
-            </Grid>
-          </nav>
-
-          <IconButton color="error" onClick={handleClick}>
+          <IconButton color="error" onClick={handleLogout}>
             <LogoutOutlined />
           </IconButton>
         </Box>

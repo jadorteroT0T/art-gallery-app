@@ -1,4 +1,9 @@
-import { Drawer, Toolbar, Typography, Divider, Box, List } from '@mui/material';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 import type { CustomItem } from '../../types/custom-item';
 
@@ -18,7 +23,7 @@ export const SideBar = ({ title = '', items, drawerWidth = 250 }: Props) => {
         open
         sx={{
           '& .MuiDrawer-paper': {
-            width: 250,
+            width: drawerWidth,
             boxSizing: 'border-box',
           },
         }}
@@ -28,15 +33,14 @@ export const SideBar = ({ title = '', items, drawerWidth = 250 }: Props) => {
             {title}
           </Typography>
         </Toolbar>
+
         <Divider />
 
-        {items && (
-          <List>
-            {items?.map((item) => (
-              <SideBarItem key={item.id} {...item} />
-            ))}
-          </List>
-        )}
+        <List>
+          {items?.map((item) => (
+            <SideBarItem key={item.path} {...item} />
+          ))}
+        </List>
       </Drawer>
     </Box>
   );

@@ -1,16 +1,16 @@
 import { collection, getDocs } from 'firebase/firestore';
 
 import { FirebaseDB } from '../firebase/config';
-import type { ProjectState } from '../gallery/types/project-state';
+import type { Project } from '../projects/types/project';
 
-export const loadProjects = async (uid: string): Promise<ProjectState[]> => {
+export const loadProjects = async (uid: string): Promise<Project[]> => {
   const collectionRef = collection(FirebaseDB, `${uid}/gallery/projects`);
   const docs = await getDocs(collectionRef);
 
-  const projects: ProjectState[] = [];
+  const projects: Project[] = [];
 
   docs.forEach((doc) => {
-    const projectDoc = doc.data() as ProjectState;
+    const projectDoc = doc.data() as Project;
     projects.push({ ...projectDoc, id: projectDoc.id });
   });
 

@@ -1,6 +1,6 @@
 export interface CustomItem {
-  id: string;
+  path: string;
   title: string;
   subtitle?: string;
-  onClick?: () => void;
+  icon: React.ReactNode;
 }

@@ -1,2 +1,2 @@
-export * from './gallery-slice';
+export * from './projects-slice';
 export * from './thunks';

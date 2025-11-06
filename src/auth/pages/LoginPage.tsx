@@ -1,14 +1,13 @@
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router';
-import {
-  Alert,
-  Button,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from '@mui/material';
+
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 import type { LoginFormInputs } from '../types';
 import { authErrors } from '../errors/auth-errors';
@@ -16,7 +15,7 @@ import { authErrors } from '../errors/auth-errors';
 import { useAppDispatch, useAppSelector } from '../../store/reduxHooks';
 import { startLoginWithEmailAndPassword } from '../../store/auth';
 
-import { AuthLayout } from '../layout';
+import { PasswordField } from '../../ui/components/PasswordField';
 
 export const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -27,24 +26,22 @@ export const LoginPage = () => {
     formState: { errors, isValid },
     handleSubmit,
     register,
-    watch,
   } = useForm<LoginFormInputs>();
 
-  const onSubmit = () => {
-    console.log(errors);
-
+  const handleLogin = (data: LoginFormInputs) => {
     if (!isValid) return;
 
-    const formValues = watch();
-
-    dispatch(startLoginWithEmailAndPassword(formValues));
+    dispatch(startLoginWithEmailAndPassword(data));
   };
 
   return (
-    <AuthLayout title="Iniciar sesión">
+    <>
+      <Typography variant="h5" sx={{ mb: 1 }}>
+        Iniciar sesión
+      </Typography>
       <form
         aria-label="submit-form"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleLogin)}
         className="animate__animated animate__fadeIn animate__faster"
       >
         <Grid container direction="column">
@@ -53,6 +50,7 @@ export const LoginPage = () => {
               label="Correo"
               type="email"
               placeholder="correo@mail.com"
+              autoComplete="email"
               fullWidth
               error={errors.email !== undefined}
               helperText={errors.email?.message}
@@ -61,16 +59,10 @@ export const LoginPage = () => {
           </Grid>
 
           <Grid sx={{ mt: 2 }}>
-            <TextField
-              label="Contraseña"
-              type="password"
-              placeholder="Contraseña"
+            <PasswordField
+              label="Contraseña"
+              placeholder="Digita tu contraseña"
               fullWidth
-              slotProps={{
-                htmlInput: {
-                  'data-testid': 'password',
-                },
-              }}
               error={!!errors.password}
               helperText={errors.password?.message}
               {...register('password', {
@@ -103,6 +95,6 @@ export const LoginPage = () => {
           </Grid>
         </Grid>
       </form>
-    </AuthLayout>
+    </>
   );
 };
