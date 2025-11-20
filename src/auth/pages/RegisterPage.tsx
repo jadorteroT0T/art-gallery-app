@@ -1,50 +1,54 @@
 import { useMemo } from 'react';
 import { Link as RouterLink } from 'react-router';
 import { useForm } from 'react-hook-form';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import {
+  Alert,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 import type { RegisterFormInputs } from '../types/register-form-inputs';
 
 import { startCreatingUserWithEmailAndPassword } from '../../store/auth';
 import { useAppDispatch, useAppSelector } from '../../store/reduxHooks';
 
+import { AuthLayout } from '../layout';
 import { authErrors } from '../errors/auth-errors';
-import { PasswordField } from '../../ui/components/PasswordField';
 
 export const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const { status, errorMessage } = useAppSelector((state) => state.auth);
-  const isAuthenticating = useMemo(() => status === 'checking', [status]);
+  const isChekingAuthentication = useMemo(
+    () => status === 'checking',
+    [status]
+  );
 
   const {
     formState: { isValid, errors },
     handleSubmit,
     register,
+    watch,
   } = useForm<RegisterFormInputs>();
 
-  const handleRegister = (data: RegisterFormInputs) => {
+  const onSubmit = () => {
     if (!isValid) return;
 
+    const formValues = watch();
     dispatch(
       startCreatingUserWithEmailAndPassword({
-        ...data,
-        fullName: data.fullName,
+        ...formValues,
+        fullName: formValues.fullName,
       })
     );
   };
 
   return (
-    <>
-      <Typography variant="h5" sx={{ mb: 1 }}>
-        Crear cuenta
-      </Typography>
+    <AuthLayout title="Crear cuenta">
       <form
-        onSubmit={handleSubmit(handleRegister)}
+        onSubmit={handleSubmit(onSubmit)}
         className="animate__animated animate__fadeIn animate__faster"
       >
         <Grid container direction="column">
@@ -53,7 +57,6 @@ export const RegisterPage = () => {
               label="Nombre completo"
               type="text"
               placeholder="Tu nombre"
-              autoComplete="name"
               fullWidth
               error={!!errors.fullName}
               helperText={errors.fullName?.message}
@@ -68,7 +71,6 @@ export const RegisterPage = () => {
               label="Correo"
               type="email"
               placeholder="correo@google.com"
-              autoComplete="email"
               fullWidth
               error={!!errors.email}
               helperText={errors.email?.message}
@@ -77,7 +79,7 @@ export const RegisterPage = () => {
           </Grid>
 
           <Grid sx={{ mt: 2 }}>
-            <PasswordField
+            <TextField
               label="Contraseña"
               type="password"
               placeholder="Contraseña"
@@ -97,7 +99,7 @@ export const RegisterPage = () => {
 
             <Grid size={12}>
               <Button
-                disabled={isAuthenticating}
+                disabled={isChekingAuthentication}
                 variant="contained"
                 fullWidth
                 type="submit"
@@ -115,6 +117,6 @@ export const RegisterPage = () => {
           </Grid>
         </Grid>
       </form>
-    </>
+    </AuthLayout>
   );
 };

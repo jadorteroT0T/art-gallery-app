@@ -1,47 +1,35 @@
 import { useMemo } from 'react';
-import { NavLink, useLocation } from 'react-router';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-
+import { TurnedInNot } from '@mui/icons-material';
+import {
+  Grid,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import type { CustomItem } from '../../types/custom-item';
-import { cropString } from '../../helpers';
 
-export const SideBarItem = ({ title, subtitle, icon, path }: CustomItem) => {
+export const SideBarItem = ({ title, subtitle, onClick }: CustomItem) => {
   const newTitle = useMemo(() => {
-    return cropString(title, 15);
+    return title.length > 15 ? title.substring(0, 15) + '...' : title;
   }, [title]);
 
   const newSubtitle = useMemo(() => {
     if (!subtitle) return;
-    return cropString(subtitle, 35);
+    return subtitle.length > 35 ? subtitle.substring(0, 35) + '...' : subtitle;
   }, [subtitle]);
 
-  const { pathname } = useLocation();
-  const isActive = pathname.includes(path);
-
   return (
-    <Link component={NavLink} to={path}>
-      <ListItem
-        divider
-        className="animate__animated animate__fadeIn"
-        disablePadding
-      >
-        <ListItemButton selected={isActive}>
-          <ListItemAvatar>
-            <Avatar sx={{ backgroundColor: 'secondary.main' }}>{icon}</Avatar>
-          </ListItemAvatar>
-
-          <Grid>
-            <ListItemText primary={newTitle} />
-            <ListItemText secondary={newSubtitle} />
-          </Grid>
-        </ListItemButton>
-      </ListItem>
-    </Link>
+    <ListItem className="animate__animated animate__fadeIn" disablePadding>
+      <ListItemButton onClick={onClick}>
+        <ListItemIcon>
+          <TurnedInNot />
+        </ListItemIcon>
+        <Grid>
+          <ListItemText primary={newTitle} />
+          <ListItemText secondary={newSubtitle} />
+        </Grid>
+      </ListItemButton>
+    </ListItem>
   );
 };

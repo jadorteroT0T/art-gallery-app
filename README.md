@@ -13,7 +13,6 @@ VITE_PROJECTID=
 VITE_STORAGEBUCKET=
 VITE_MESSAGINGSENDERID=
 VITE_APPID=
-VITE_CLOUDINARY_URL=
 ```
 
 3. Run project in dev mode with `npm run dev` or using the development environment of your preference like bun or deno.

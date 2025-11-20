@@ -1,4 +1,4 @@
-export * from './layouts';
+export * from './layout';
 export * from './pages';
 export * from './routes';
 export * from './types';

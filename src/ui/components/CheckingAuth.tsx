@@ -1,5 +1,4 @@
-import CircularProgress from '@mui/material/CircularProgress';
-import Grid from '@mui/material/Grid';
+import { CircularProgress, Grid } from '@mui/material';
 
 export const CheckingAuth = () => {
   return (

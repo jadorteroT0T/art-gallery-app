@@ -1,14 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { authSlice } from './auth';
-import { projectsSlice } from './gallery';
-import { uiSlice } from './ui';
+import { gallerySlice } from './gallery';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
-    projects: projectsSlice.reducer,
-    ui: uiSlice.reducer,
+    gallery: gallerySlice.reducer,
   },
 });
 

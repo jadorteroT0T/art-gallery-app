@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 export const purpleTheme = createTheme({
@@ -11,16 +11,6 @@ export const purpleTheme = createTheme({
     },
     error: {
       main: red.A400,
-    },
-  },
-
-  components: {
-    MuiLink: {
-      styleOverrides: {
-        root: {
-          textDecoration: 'none',
-        },
-      },
     },
   },
 });
