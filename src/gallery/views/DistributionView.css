@@ -1,0 +1,170 @@
+.distribution-view {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.distribution-view h1 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.distribution-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.sectors-section,
+.workers-section {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.sectors-section h2,
+.workers-section h2 {
+  color: #495057;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* Forms */
+.sector-form,
+.worker-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sector-form input,
+.sector-form textarea,
+.worker-form input {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.sector-form textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.sector-form button,
+.worker-form button {
+  padding: 10px 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.sector-form button:hover,
+.worker-form button:hover {
+  background: #0056b3;
+}
+
+.role-selection {
+  position: relative;
+}
+
+/* Lists */
+.sector-list,
+.worker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sector-item,
+.worker-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sector-item:hover {
+  border-color: #007bff;
+}
+
+.sector-item.selected {
+  border-color: #007bff;
+  background: #e7f3ff;
+}
+
+.sector-info h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.sector-info p {
+  margin: 0 0 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.sector-info span {
+  font-size: 12px;
+  color: #888;
+}
+
+.worker-info h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.worker-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.delete-btn {
+  padding: 5px 10px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+
+.no-sectors,
+.no-workers {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 20px;
+}
+
+.salary-summary {
+  padding: 10px;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .distribution-container {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,3 +3,7 @@ export * from './ImageGallery';
 export * from './NavBar';
 export * from './SideBar';
 export * from './SideBarItem';
+export * from './SectorForm';
+export * from './WorkerForm';
+export * from './SectorList';
+export * from './WorkerList';
