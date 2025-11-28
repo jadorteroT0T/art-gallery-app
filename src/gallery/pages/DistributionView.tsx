@@ -21,7 +21,9 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gap: '30px'
-  },
+  }, 
+
+  
   section: {
     background: '#f8f9fa',
     padding: '20px',
